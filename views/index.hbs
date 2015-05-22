@@ -6,9 +6,12 @@
 <body>
   <h1>Mad Libs</h1>
   <ul id="messages"></ul>
-  <div id="entry">
-    Entry
-  </div>
+<!--ts edits start here
+ 
+  <div class="prompt"></div>
+		<button>Next</button>
+ts edits end here--!>
+
   <div id="result">
     Result
   </div>
@@ -27,6 +30,7 @@
   </form>
   <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
   <script>
     var socket = io();
   $('form').submit(function(){
@@ -49,5 +53,73 @@
     $('#messages').append($('<li>').text(msg));
   });
   </script>
+  
+//ts edits follow
+
+<div class="prompt"></div>
+<button>Next</button>
+<script>
+// List of prompts for the user
+var prompts = [
+		'Your favorite food',
+		'Your first pet was a...?',
+		'A dessert',
+		'An animal at the zoo',
+		'A fruit',
+		'Your first grade teacher',
+		'A professional sports team',
+		'A brand of dogfood',
+		'Least favorite type of undergrad (id: freshmen, sophmores, juniors, etc.)',
+		'A type of vegetables',
+		'Food for animals',
+ ];
+
+var response=[];
+
+/*sample data
+
+response = ["Cheeseburgers", "cat", "Ice cream", "dogs", "apples", "Ms. Ercolano", "The New York Yankees", "Alpo", "Freshmen", "carrots", "slop"], currentPrompt = 11, console.log(response), console.log(currentPrompt)
+*/
+
+// Keep track of current prompt we're on
+var currentPrompt = 0;
+
+// A function that will call the next prompt
+var nextPrompt = function() {
+  //if there's no answer in the form
+  if (currentPrompt != 0){
+    response.push($('input').val());
+  }
+	// if there is a next prompt
+	if (currentPrompt < prompts.length) {
+		// put first prompt in all html elements with class 
+		$('.prompt').html(prompts[currentPrompt] +'<br><input type="text">');
+		// move the next prompt into variable currentPrompt 
+		currentPrompt = currentPrompt + 1;
+	}
+	//or else if we're at the end of the array
+	else {
+		// put a new message into the html.
+		showFinal();
+	}
+}
+
+//puts user response into HTML
+var showFinal = function() {
+
+  $('.prompt').html('The farmer went to the barn to feed his animals.  He fed <span class="fill">'+response[0]+'</span> to the <span class="fill">'+response[1]+'</span>, <span class="fill">'+response[2]+'</span> to the <span class="fill">'+response[3]+'</span>, and <span class="fill">'+response[4]+'</span> to <span class="fill">'+response[5]+'</span>.  The <span class="fill">'+response[6]+'</span> got <span class="fill">'+response[7]+'</span>, and the <span class="fill">'+response[8]+'</span> were fed <span class="fill">'+response[9]+'</span>.  When he finished and got home there was a big plate of <span class="fill">'+response[10]+'</span> waiting for him with a note that read, The animals called and said this was your favorite - I worked all day so eat up!');
+  //make button disappear
+  $('button').hide();
+}
+// run nextPrompt function when button is clicked
+$('button').click(function() {
+	nextPrompt();
+});
+
+// Show the first prompt as soon as js loads
+nextPrompt();
+</script>
+
+
 </body>
 </html>

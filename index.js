@@ -5,6 +5,7 @@ var http = require("http").Server(app);
 var io = require("socket.io")(http);
 var mongoose = require("mongoose");
 app.set("view engine", "hbs");
+app.use(express.static(__dirname + "/public"));
 
 mongoose.connect("mongodb://localhost/mad-librarians");
 var db = mongoose.connection;
