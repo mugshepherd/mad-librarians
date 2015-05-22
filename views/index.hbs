@@ -1,1 +1,53 @@
-<h1>hello world</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mad Libs</title>
+</head>
+<body>
+  <h1>Mad Libs</h1>
+  <ul id="messages"></ul>
+  <div id="entry">
+    Entry
+  </div>
+  <div id="result">
+    Result
+  </div>
+  <p id="prompt"></p>
+  <form action="">
+    <input id="noun1" autocomplete="off" />
+    <input id="noun2" autocomplete="off" />
+    <input id="noun3" autocomplete="off" />
+    <input id="adj1" autocomplete="off" />
+    <input id="adj2" autocomplete="off" />
+    <input id="adj3" autocomplete="off" />
+    <input id="verb1" autocomplete="off" />
+    <input id="verb2" autocomplete="off" />
+    <input id="verb3" autocomplete="off" />
+    <button>Submit</button>
+  </form>
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script>
+    var socket = io();
+  $('form').submit(function(){
+    socket.emit('mad lib', [
+      $('#noun1').val(),
+      $('#noun2').val(),
+      $('#noun3').val(),
+      $('#adj1').val(),
+      $('#adj2').val(),
+      $('#adj3').val(),
+      $('#verb1').val(),
+      $('#verb2').val(),
+      $('#verb3').val()
+      ]);
+    $('#m').val('');
+    $("#prompt").text('Enter a noun');
+    return false;
+  });
+  socket.on('mad lib', function(msg){
+    $('#messages').append($('<li>').text(msg));
+  });
+  </script>
+</body>
+</html>

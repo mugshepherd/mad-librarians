@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mugshepherd/mad-librarians.git"
+    "url": "https://github.com/nhashmi/mad-librarians.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mugshepherd/mad-librarians/issues"
+    "url": "https://github.com/nhashmi/mad-librarians/issues"
   },
-  "homepage": "https://github.com/mugshepherd/mad-librarians",
+  "homepage": "https://github.com/nhashmi/mad-librarians",
   "dependencies": {
     "express": "^4.12.4",
     "hbs": "^3.0.1",
